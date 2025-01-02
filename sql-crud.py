@@ -80,6 +80,14 @@ tim_berners_lee = Programmer(
     famous_for ="World Wide Web"
 )
 
+ben_williams = Programmer(
+    first_name = "Ben",
+    last_name = "Williams",
+    gender = "Male",
+    nationality = "British",
+    famous_for ="Being Welsh"
+)
+
 # add each instance of our programmer to our session
 #session.add(ada_lovelace) - this gets commented out after adding her to the db as to not duplicate our work
 session.add(alan_turning)
@@ -87,9 +95,32 @@ session.add(grace_hopper)
 session.add(margaret_hamilton)
 session.add(bill_gates)
 session.add(tim_berners_lee)
+session.add(ben_williams)
+
+# commit our session to the database
+#session.commit()
+
+
+# updating a single record
+#programmer = session.query(programmer).filter_by(id=7).first()
+#programmer.famous_for = "World President"
 
 # commit our session to the database
 session.commit()
+# then run the file python3 sql-crud.py
+
+#update multiple records - Commented out single record to avoid duplications
+people = session.query(Programmer)
+for person in people:
+    if person.gender == "Female":
+        person.gender = "F"
+    elif person.gender == "Male":
+        person.gender = "M"
+    else:
+        print("Gender not defined")
+    session.commit()
+
+# run this in the server with python3 sql-crud.py 
 
 # query the database to find all programmers
 programmers = session.query(Programmer)
