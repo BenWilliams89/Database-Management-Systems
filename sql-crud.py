@@ -127,7 +127,7 @@ fname = input("Enter a first name: ")
 lname = input("Enter a last name: ")
 programmer = session.query(Programmer).filter_by(first_name=fname, last_name=lname).first()
 
-#defensive programming
+#defensive programming - confirm you want to delete before doing so
 if programmer is not None:
     print("Programmer Found: ", programmer.first_name + " " + programmer.last_name)
     confirmation = input("Are you sure you want to delete? (y/n) ")
