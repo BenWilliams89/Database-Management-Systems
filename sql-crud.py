@@ -98,18 +98,18 @@ session.add(tim_berners_lee)
 session.add(ben_williams)
 
 # commit our session to the database
-#session.commit()
+session.commit()
 
 
 # updating a single record
-#programmer = session.query(programmer).filter_by(id=7).first()
-#programmer.famous_for = "World President"
+programmer = session.query(programmer).filter_by(id=7).first()
+programmer.famous_for = "World President"
 
 # commit our session to the database
 session.commit()
 # then run the file python3 sql-crud.py
 
-#update multiple records - Commented out single record to avoid duplications
+#update multiple records - Commented out single record to avoid duplications when running
 people = session.query(Programmer)
 for person in people:
     if person.gender == "Female":
@@ -119,8 +119,29 @@ for person in people:
     else:
         print("Gender not defined")
     session.commit()
-
 # run this in the server with python3 sql-crud.py 
+
+
+# deleting a single record
+fname = input("Enter a first name: ")
+lname = input("Enter a last name: ")
+programmer = session.query(Programmer).filter_by(first_name=fname, last_name=lname).first()
+
+#defensive programming
+if programmer is not None:
+    print("Programmer Found: ", programmer.first_name + " " + programmer.last_name)
+    confirmation = input("Are you sure you want to delete? (y/n) ")
+    if confirmation.lower() == "y":
+        session.delete(programmer)
+        session.commit()
+        print("Programmer has been deleted")
+    else:
+        print("Programmer not deleted")
+else:
+    print("No Programmer found")
+
+# run this with python3 sql-crud.py
+
 
 # query the database to find all programmers
 programmers = session.query(Programmer)
